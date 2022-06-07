@@ -1,19 +1,16 @@
 import { it, expect } from 'vitest';
-
 import { add } from './math';
 
 it('should summarize all number values in an array', () => {
   // Arrange
-  const numbers = [1, 2];
+  const numbers = [1, 2, 3];
 
   // Act
   const result = add(numbers);
-
+  const expectedResult = numbers.reduce((prevValue, curValue) => {
+    return prevValue + curValue;
+  }, 0);
   // Assert
-  const expectedResult = numbers.reduce(
-    (prevValue, curValue) => prevValue + curValue,
-    0
-  );
   expect(result).toBe(expectedResult);
 });
 
@@ -30,10 +27,10 @@ it('should yield a correct sum if an array of numeric string values is provided'
 
   const result = add(numbers);
 
-  const expectedResult = numbers.reduce(
-    (prevValue, curValue) => +prevValue + +curValue,
-    0
-  );
+  const expectedResult = numbers.reduce((prevValue, curValue) => {
+    return +prevValue + +curValue;
+  }, 0);
+
   expect(result).toBe(expectedResult);
 });
 
@@ -46,6 +43,12 @@ it('should yield 0 if an empty array is provided', () => {
 });
 
 it('should throw an error if no value is passed into the function', () => {
+  // try {
+  //   const result = add();
+  // } catch (err) {
+  //   expect(err).toBeDefined();
+  // }
+
   const resultFn = () => {
     add();
   };

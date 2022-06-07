@@ -23,7 +23,7 @@ describe('validateStringNotEmpty()', () => {
 
   it('should throw an error if any other value than a string is provided', () => {
     const inputNum = 1;
-    const inputBool = 1;
+    const inputBool = true;
     const inputObj = {};
 
     const validationFnNum = () => validateStringNotEmpty(inputNum);
