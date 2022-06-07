@@ -6,7 +6,6 @@ export function generateResultText(calculationResult) {
   } else if (calculationResult !== 'no-calc') {
     resultText = 'Result: ' + calculationResult;
   }
-
   return resultText;
 }
 

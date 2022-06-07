@@ -1,30 +1,49 @@
-import { it, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
-import { transformToNumber } from './numbers';
+import { transformToNumber, cleanNumbers } from './numbers';
 
-it('should transform a string number to a number of type number', () => {
-  const input = '1';
+describe('transformToNumber()', () => {
+  it('should transform a string number to a number of type number', () => {
+    const input = '1';
 
-  const result = transformToNumber(input);
+    const result = transformToNumber(input);
 
-  expect(result).toBeTypeOf('number');
+    expect(result).toBeTypeOf('number');
+  });
+
+  it('should transform a string number to a number of type number', () => {
+    const input = '1';
+
+    const result = transformToNumber(input);
+
+    expect(result).toBe(+input);
+  });
+
+  it('should yield NaN for non-transformable values', () => {
+    const input = 'invalid';
+    const input2 = {};
+
+    const result = transformToNumber(input);
+    const result2 = transformToNumber(input2);
+
+    expect(result).toBeNaN();
+    expect(result2).toBeNaN();
+  });
 });
 
-it('should transform a string number to a number of type number', () => {
-  const input = '1';
+describe('cleanNumbers()', () => {
+  it('should return an array of number values if an array of string number value is provided', () => {
+    const numberValue = ['1', '2'];
 
-  const result = transformToNumber(input);
+    const cleanedNumbers = cleanNumbers(numberValue);
 
-  expect(result).toBe(+input);
-});
+    expect(cleanedNumbers[0]).toBeTypeOf('number');
+  });
+  it('should throw an error if an array with at least one empty string is provided', () => {
+    const numberValues = ['', 1];
 
-it('should yield NaN for non-transformable values', () => {
-  const input = 'invalid';
-  const input2 = {};
+    const cleanFn = () => cleanNumbers(numberValues);
 
-  const result = transformToNumber(input);
-  const result2 = transformToNumber(input2);
-
-  expect(result).toBeNaN();
-  expect(result2).toBeNaN();
+    expect(cleanFn).toThrow();
+  });
 });
