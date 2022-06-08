@@ -1,5 +1,17 @@
-import { generateReportData, storeData } from './src/data.js';
-import log from './src/util/logger.js';
+import { extractPostData, savePost } from './posts/posts.js';
 
-const data = generateReportData(log);
-storeData(data);
+const formElement = document.querySelector('form');
+
+export async function submitFormHandler(event) {
+  event.preventDefault();
+
+  const formData = new FormData(formElement);
+  try {
+    const postData = extractPostData(formData);
+    await savePost(postData);
+  } catch (error) {
+    showError(error.message);
+  }
+}
+
+formElement.addEventListener('submit', submitFormHandler);
