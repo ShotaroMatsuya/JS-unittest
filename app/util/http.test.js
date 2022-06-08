@@ -1,4 +1,5 @@
 import { it, vi, expect } from 'vitest';
+import { HttpError } from './errors';
 
 import { sendDataRequest } from './http';
 
@@ -42,4 +43,25 @@ it('should return any available response data', async () => {
   }
 
   expect(errorMessage).not.toBe('Not a string.');
+});
+
+it('should throw an HttpError in case of non-ok responses', () => {
+  // check whether type of Instance thrown by Handler
+  testFetch.mockImplementationOnce((url, options) => {
+    return new Promise((resolve, reject) => {
+      const testResponse = {
+        ok: false,
+        json() {
+          return new Promise((resolve, reject) => {
+            resolve(testResponseData);
+          });
+        },
+      };
+      resolve(testResponse);
+    });
+  });
+
+  const testData = { key: 'test' };
+
+  return expect(sendDataRequest(testData)).rejects.toBeInstanceOf(HttpError);
 });
