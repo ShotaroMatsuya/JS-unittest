@@ -1,18 +1,19 @@
 import { it, expect } from 'vitest';
-
 import { validateNotEmpty } from './validation';
 
 it('should throw an error if an empty string is provided as a value', () => {
   const testInput = '';
 
+  // 関数でラッピング
   const validationFn = () => validateNotEmpty(testInput);
 
   expect(validationFn).toThrow();
 });
 
 it('should throw an error if an empty string is provided as a value', () => {
-  const testInput = '  ';
+  const testInput = ' ';
 
+  // 関数でラッピング
   const validationFn = () => validateNotEmpty(testInput);
 
   expect(validationFn).toThrow();

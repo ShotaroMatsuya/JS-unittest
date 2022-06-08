@@ -1,5 +1,4 @@
-import { describe, expect, it } from 'vitest';
-
+import { describe, it, expect } from 'vitest';
 import { HttpError, ValidationError } from './errors';
 
 describe('class HttpError', () => {
@@ -24,7 +23,7 @@ describe('class HttpError', () => {
     expect(testError.statusCode).toBe(testStatus);
     expect(testError.message).toBe(testMessage);
     expect(testError.data).toBeUndefined();
-  })
+  });
 });
 
 describe('class ValidationError', () => {
@@ -32,7 +31,7 @@ describe('class ValidationError', () => {
     const testMessage = 'test';
 
     const testError = new ValidationError(testMessage);
-    
+
     expect(testError.message).toBe(testMessage);
-  })
+  });
 });

@@ -1,6 +1,6 @@
 import { it, vi, expect } from 'vitest';
-
 import { HttpError } from './errors';
+
 import { sendDataRequest } from './http';
 
 const testResponseData = { testKey: 'testData' };
@@ -8,8 +8,9 @@ const testResponseData = { testKey: 'testData' };
 const testFetch = vi.fn((url, options) => {
   return new Promise((resolve, reject) => {
     if (typeof options.body !== 'string') {
-      return reject('Not a string.');
+      return reject('Not a string');
     }
+
     const testResponse = {
       ok: true,
       json() {
@@ -29,8 +30,8 @@ it('should return any available response data', () => {
 
   return expect(sendDataRequest(testData)).resolves.toEqual(testResponseData);
 });
-
-it('should convert the provided data to JSON before sending the request', async () => {
+it('should return any available response data', async () => {
+  // check whether 'Json.stringify' work or not
   const testData = { key: 'test' };
 
   let errorMessage;
@@ -45,6 +46,7 @@ it('should convert the provided data to JSON before sending the request', async 
 });
 
 it('should throw an HttpError in case of non-ok responses', () => {
+  // check whether type of Instance thrown by Handler
   testFetch.mockImplementationOnce((url, options) => {
     return new Promise((resolve, reject) => {
       const testResponse = {
